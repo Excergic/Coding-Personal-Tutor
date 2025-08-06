@@ -1,6 +1,7 @@
 import os
 import requests
 import ollama
+import gradio as gr
 
 MODEL = "llama3.2:1b"
 
@@ -25,35 +26,27 @@ Remember, you must ALWAYS provide a response in markdown format.
 """
 
 
-def user_prompt():
-    query = input("Ask me anything about python programming language: ")
-    return query
-
-def messages():
-    return [
+def messages(prompt):
+    messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt()},
+        {"role": "user", "content": prompt}
     ]
 
-def get_response():
-    response = ollama.chat(
+    completion = ollama.chat(
         model=MODEL,
-        messages=messages(),
-        #stream=True,  
+        messages=messages,
     )
-    
-    # collect all chunks of text from the response
-    # full_respose = ""
-    # for chunk in response:
-    #     if 'message' in chunk and 'content' in chunk['message']:
-    #         full_respose += chunk['message']['content']
-    
-    # return full_respose
-    return response['message']['content']
+    return completion['message']['content']
+
 
 def main():
-    response = get_response()
-    print(response)
+    gr.Interface(
+        fn=messages,
+        inputs=gr.Textbox(label="Ask me anything about python programming language", placeholder="Type your query here..."),
+        outputs=gr.Markdown(label="Response"),
+        title="Python Programming Language Assistant",
+        description="A helpful assistant specialized in Python programming language queries.",
+    ).launch()
 
 if __name__ == "__main__":
     main()                  
