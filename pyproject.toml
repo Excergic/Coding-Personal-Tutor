@@ -7,7 +7,8 @@ requires-python = ">=3.11"
 dependencies = [
     "requests",
     "ollama",
-    "gradio"
+    "gradio",
+    "openai"
 ]
 
 [project.optional-dependencies]
