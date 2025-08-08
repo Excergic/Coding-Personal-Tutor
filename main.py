@@ -1,5 +1,4 @@
 
-from httpx import stream
 import ollama
 import gradio as gr
 from openai import OpenAI
@@ -7,22 +6,22 @@ from openai import OpenAI
 MODEL = "llama3.2:1b"
 ollama_via_openai = OpenAI(base_url='http://localhost:11434/v1', api_key='ollama')
 
-system_prompt = """You are a helpful coding assistant specialized in python programming language, assist user's query regarding 
-python programming language. Your goal is to provide the user with the most accurate and helpful response possible. 
+system_prompt = """You are a helpful coding assistant specialized in Rust programming language, assist user's query regarding 
+Rust programming language. Your goal is to provide the user with the most accurate and helpful response possible. 
 You will be given a query and you will provide a response. 
 
-If the user's query is not related to python programming language, you will respond with a message saying that you are 
+If the user's query is not related to Rust programming language, you will respond with a message saying that you are 
 not sure how to help the user. 
 
-If the user's query is related to python programming language, you will respond with a message saying that you are 
+If the user's query is related to Rust programming language, you will respond with a message saying that you are 
 sure how to help the user. 
 
 You will respond with a markdown code snippet formatted in the following schema:
 
-```python
+```Rust
 {{code}}
 ```
-If user ask you about any other programming language, you will respond with a message saying I am trained on python data I have not a 
+If user ask you about any other programming language, you will respond with a message saying I am trained on Rust data I have not a 
 knowledge of the programming language you are asking about.
 Remember, you must ALWAYS provide a response in markdown format.
 
